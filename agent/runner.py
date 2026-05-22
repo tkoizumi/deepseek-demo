@@ -28,7 +28,11 @@ class Runner:
         tool_request = json.loads(tool_request)
 
         if tool_request["tool_name"] == "search_library":
-            book_data = self.library.search(tool_request["arguments"]["query"])
+            args = tool_request["arguments"]
+            query = args["query"]
+            locations = args.get("locations")
+
+            book_data = self.library.search(query, locations)
 
             final_res = self.llm.chat(
                 [
