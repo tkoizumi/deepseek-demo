@@ -26,7 +26,27 @@ class LLMClient:
         return res.choices[0].message.content
 
     def json_chat(self, messages):
-        res = self.chat(messages)
+        json_messages = messages.copy()
+        json_message = {
+            "role": "system",
+            "content": """
+            Required schema:
+            {
+                "tool_name": "string",
+                "arguments": {}
+            }
+
+            Rules:
+            - Do not return markdown
+            - Do not return explanations
+            - Always include tool_name
+            - Always include arguments
+            - arguments must be an object
+            """,
+        }
+        json_messages.append(json_message)
+
+        res = self.chat(json_messages)
 
         import json
 

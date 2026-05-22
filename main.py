@@ -17,20 +17,8 @@ def main():
         sys.exit(1)
 
     query = sys.argv[1]
-    # print(f'User asked "{query}"')
     res = runner.run(query)
-    print(json.dumps(res, indent=2))
-
-    # messages = [
-    #     {
-    #         "role": "system",
-    #         "content": "You are a helpful assistant. Keep answers short.",
-    #     },
-    #     {"role": "user", "content": query},
-    # ]
-    #
-    # res = llm.chat(messages)
-    # print(res)
+    print(res)
 
 
 if __name__ == "__main__":
